@@ -26,67 +26,79 @@ except Exception as e:
 globalCss = """
 <style>
 
+    /* Set all text to black */
     body, p, div, label, input, span {
         color: black !important;
     }
 
-    /* Fix Input Fields */
+    /* Fix input text fields (white background + black text) */
     .stNumberInput input, .stTextInput input {
         color: black !important;
         background-color: white !important;
     }
 
-    /* Fix Selectbox primary display */
-    .stSelectbox > div > div {
+    /* Fix selectbox collapsed area */
+    div[data-baseweb="select"] > div {
         background-color: white !important;
         color: black !important;
-        border-radius: 6px;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
     }
 
-    /* Fix Selectbox label */
-    .stSelectbox label {
+    /* Fix selectbox text */
+    div[data-baseweb="select"] * {
         color: black !important;
     }
 
-    /* Fix selectbox dropdown options */
-    .stSelectbox div[data-baseweb="select"] * {
-        color: black !important;
-        background-color: white !important;
-    }
-
-    /* Fix inner dropdown list items */
-    .stSelectbox ul {
+    /* Fix dropdown menu background */
+    ul[role="listbox"] {
         background-color: white !important;
         color: black !important;
+        border: 1px solid #999 !important;
     }
 
-    /* Slider Label Text */
+    /* Fix dropdown menu options */
+    ul[role="listbox"] li {
+        background-color: white !important;
+        color: black !important;
+        padding: 8px !important;
+    }
+
+    /* Fix dropdown option hover */
+    ul[role="listbox"] li:hover {
+        background-color: #e6f7ff !important; /* light blue hover */
+        color: black !important;
+    }
+
+    /* Fix slider label text */
     .stSlider label {
         color: black !important;
     }
 
+    /* Title Blocks */
     .title-main {
         background-color: #102770;
-        padding: 20px;
-        color: white;
-        border-radius: 12px;
+        padding: 15px;
+        color: white !important;
+        border-radius: 10px;
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
 
     .title-sub {
         background-color: #3a80b5;
-        padding: 15px;
-        color: white;
+        padding: 10px;
+        color: white !important;
         font-weight: bold;
         text-align: center;
-        border-radius: 12px;
-        margin-bottom: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
     }
 
     .stApp {
         background-color: #D3D3D3;
     }
+
 </style>
 """
 st.markdown(globalCss, unsafe_allow_html=True)
