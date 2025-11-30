@@ -76,6 +76,7 @@ st.markdown(
 st.markdown("<div class='title-sub'>Enter Applicant Information Below to Determine Loan Approval:</div>", unsafe_allow_html=True)
 
 # ---Define categorical fields based on previously provided values---
+# Reasons for loan
 reasonLevels = [
     'cover_an_unexpected_cost',
     'credit_card_refinancing',
@@ -84,17 +85,17 @@ reasonLevels = [
     'other',
     'debt_conslidation'
 ]
-
+# Employment status
 employmentStatusLevels = ['full_time', 'part_time', 'unemployed']
-
+# Employment sector
 employmentSectorLevels = [
     'consumer_discretionary', 'information_technology', 'energy',
     'consumer_staples', 'communication_services', 'materials', 'utilities',
     'real_estate', 'health_care', 'industrials', 'financials', 'Unknown'
 ]
-
+# Bankruptcy
 everBkLevels = [0, 1]
-
+# Lender types
 lenderLevels = ['A', 'B', 'C']
 
 # ---Numeric Input Fields---
@@ -135,7 +136,7 @@ monthlyHousingPayment = st.number_input(
 )
 
 # ---Categorical Inputs---
-reason = st.selectbox("Reason for Loan", reasonLevels)
+reason = st.selectbox("Reason for Loan:", reasonLevels)
 employmentStatus = st.selectbox("Employment Status:", employmentStatusLevels)
 employmentSector = st.selectbox("Employment Sector:", employmentSectorLevels)
 
@@ -145,7 +146,7 @@ everBankruptOrForeclose = st.selectbox(
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
 
-lender = st.selectbox("Lender", lenderLevels)
+lender = st.selectbox("Lender:", lenderLevels)
 
 # ---Build DataFrame---
 inputDf = pd.DataFrame({
@@ -162,19 +163,21 @@ inputDf = pd.DataFrame({
 
 # Stylize the sumbit button
 buttonStyle = """
-    <style>
-        div.stButton > button:first-child {
-            background-color: #d2fce7;
-            color: #005937;
-            border-radius: 8px;
-            border: 1px solid #66cc99;
-            padding: 10px 16px;
-        }
-        div.stButton > button:first-child:hover {
-            background-color: #baf6d7;
-            color: #003941;
-        }
-    </style>
+<style>
+    div.stButton > button:first-child {
+        background-color: #FFB3A7;   
+        color: #5A2E2E;              
+        border-radius: 8px;
+        border: 1px solid #FF8A80;   
+        padding: 10px 16px;
+        font-weight: 600;
+    }
+    div.stButton > button:first-child:hover {
+        background-color: #FF9E90;   
+        color: #3C1D1D;             
+        border-color: #FF6F61;       
+    }
+</style>
 """
 st.markdown(buttonStyle, unsafe_allow_html=True)
 
@@ -190,7 +193,7 @@ if st.button("Evaluate Loan Application:"):
         st.success(
             f"💲 Loan likely to be **APPROVED / Low Risk**\n\nProbability: **{probability:.2f}**"
     )
-        
+    # Likely to be declined message   
     else:
         st.error(
             f"🚫 Loan likely to be **DENIED / High Risk**\n\nProbability: **{probability:.2f}**"
