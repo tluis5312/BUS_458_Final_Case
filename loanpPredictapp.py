@@ -26,7 +26,24 @@ except Exception as e:
 # Set global theme for app
 globalCss = """
 <style>
+
     body, p, div, label, input, span {
+        color: black !important;
+    }
+
+    /* Input Boxes (text inside them) */
+    .stNumberInput input, .stTextInput input {
+        color: black !important;
+        background-color: white !important;
+    }
+
+    /* Selectbox Text */
+    .stSelectbox div, .stSelectbox label {
+        color: black !important;
+    }
+
+    /* Slider Label Text */
+    .stSlider label {
         color: black !important;
     }
 
@@ -50,7 +67,7 @@ globalCss = """
     }
 
     .stApp {
-        background-color: #f5f5f5;
+        background-color: #D3D3D3;
     }
 </style>
 """
@@ -88,20 +105,23 @@ monthlyGrossIncome = st.number_input(
     "Monthly Gross Income ($):",
     min_value=-2559.0,
     max_value=14005.0,
+    value=0.0, # Starts at 0, but minimum can be lower
     step=10.0
 )
 # Loan Amount
 grantedLoanAmount = st.slider(
     "Granted Loan Amount ($):",
-    min_value=1000,
-    max_value=2000000,
-    step=1000
+    min_value=1000.0,
+    max_value=2000000.0,
+    value=1000.0,
+    step=1000.0
 )
 # FICO Score
 ficoScore = st.slider(
     "FICO Score:",
     min_value=300,
     max_value=850,
+    value=300,
     step=1
 )
 # Monthly Housing Payment
@@ -109,7 +129,8 @@ monthlyHousingPayment = st.number_input(
     "Monthly Housing Payment ($):",
     min_value=150.0,
     max_value=4400.0,
-    step=1
+    value=150.0,
+    step=1.0
 )
 
 # ---Categorical Inputs---
@@ -151,7 +172,7 @@ for col in modelCols:
     if col not in inputEncoded:
         inputEncoded[col] = 0
 
-# Reorder to match model training columns
+# Match model column order
 inputEncoded = inputEncoded[modelCols]
 
 # Stylize the sumbit button
