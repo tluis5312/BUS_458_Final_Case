@@ -3,14 +3,16 @@
 import streamlit as st
 import pandas as pd
 import sklearn
-import pickle   # <-- REQUIRED so pickle.load() works
+import pickle   
 import requests
 
 # --- Select the .pkl model ---
 modelUrl = "https://raw.githubusercontent.com/tluis5312/BUS_458_Final_Case/2d2103fed3e60fd9be34e497f99400d2d88604c0/team_model.pkl"
 
+# Retrieves model from URL
 response = requests.get(modelUrl)
 
+# Error handling
 if response.status_code != 200:
     st.error("Failed to download model from GitHub.")
     st.stop()
@@ -18,41 +20,47 @@ if response.status_code != 200:
 try:
     model = pickle.loads(response.content)
 except Exception as e:
-    st.error(f" Error loading model: {e}")
+    st.error(f"Error loading model: {e}")
     st.stop()
 
-# Title for the app
-st.title("Loan Prediction Scoring")
-
-# Set background color scheme
-pageBgColor = """
+# Set global theme for app
+globalCss = """
 <style>
-    body {
-        background-color: #fcfdff;
+    body, p, div, label, input, span {
+        color: black !important;
     }
+
+    .title-main {
+        background-color: #102770;
+        padding: 15px;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .title-sub {
+        background-color: #3a80b5;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
     .stApp {
-        background-color: #fcfdff;
+        background-color: #f5f5f5;
     }
 </style>
 """
-st.markdown(pageBgColor, unsafe_allow_html=True)
+st.markdown(globalCss, unsafe_allow_html=True)
 
-# Establish base theme
-st.markdown(
-"<h1 style='text-align: center; background-color: #102770; padding: 15px; color: white;'>"
-    "<b>Personal Loan Approval Form</b></h1>",
-    unsafe_allow_html=True
-)
+# Titles
+st.markdown("<h1 class='title-main'>Personal Loan Approval Form</h1>", unsafe_allow_html=True)
+st.markdown("<div class='title-sub'>Enter Applicant Information Below to Determine Loan Approval:</div>", unsafe_allow_html=True)
 
-# Write instructions to the user
-st.write(
-"<div style='background-color: #3a80b5; color: white; font-weight: bold; padding: 10px; border-radius: 6px; text-align: center; font-size: 14px;'>"
-    "Enter Applicant Information Below to Determine Loan Approval: "
-    "</div>",
-    unsafe_allow_html=True
-)
-
-# ---Define fields based on previously provided values---
+# ---Define categorical fields based on previously provided values---
 reasonLevels = [
     'cover_an_unexpected_cost',
     'credit_card_refinancing',
@@ -75,27 +83,28 @@ everBkLevels = [0, 1]
 lenderLevels = ['A', 'B', 'C']
 
 # ---Numeric Input Fields---
+# Monthly Gross Income
 monthlyGrossIncome = st.number_input(
     "Monthly Gross Income ($):",
     min_value=-2559.0,
     max_value=14005.0,
     step=10.0
 )
-
+# Loan Amount
 grantedLoanAmount = st.slider(
     "Granted Loan Amount ($):",
     min_value=1000,
     max_value=2000000,
     step=1000
 )
-
+# FICO Score
 ficoScore = st.slider(
     "FICO Score:",
     min_value=300,
     max_value=850,
     step=1
 )
-
+# Monthly Housing Payment
 monthlyHousingPayment = st.number_input(
     "Monthly Housing Payment ($):",
     min_value=150.0,
@@ -104,27 +113,31 @@ monthlyHousingPayment = st.number_input(
 )
 
 # ---Categorical Inputs---
+# Reasons 
 reason = st.selectbox("Reason for Loan", reasonLevels)
+# Employment Status
 employmentStatus = st.selectbox("Employment Status:", employmentStatusLevels)
+# Employment Sector
 employmentSector = st.selectbox("Employment Sector:", employmentSectorLevels)
-
+# Bankruptcy
 everBankruptOrForeclose = st.selectbox(
     "Ever Bankrupt or Foreclosed:",
     everBkLevels,
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
-
+# Lender
 lender = st.selectbox("Lender", lenderLevels)
 
 # ---Build DataFrame---
 inputDf = pd.DataFrame({
-    "Reason": [reason],
+    # Numeric fields first, then categorical last
+    "Monthly_Gross_Income": [monthlyGrossIncome],
     "Granted_Loan_Amount": [grantedLoanAmount],
     "FICO_score": [ficoScore],
+    "Monthly_Housing_Payment": [monthlyHousingPayment],
+    "Reason": [reason],
     "Employment_Status": [employmentStatus],
     "Employment_Sector": [employmentSector],
-    "Monthly_Gross_Income": [monthlyGrossIncome],
-    "Monthly_Housing_Payment": [monthlyHousingPayment],
     "Ever_Bankrupt_or_Foreclose": [everBankruptOrForeclose],
     "Lender": [lender]
 })
@@ -138,7 +151,7 @@ for col in modelCols:
     if col not in inputEncoded:
         inputEncoded[col] = 0
 
-# Reorder columns
+# Reorder to match model training columns
 inputEncoded = inputEncoded[modelCols]
 
 # Stylize the sumbit button
