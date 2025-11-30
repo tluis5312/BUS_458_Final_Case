@@ -63,15 +63,32 @@ minimalCss = """
         background-color: white !important;
     }
     
-    /* Change slider line color */
-    div[data-baseweb="slider"]  .css-1gv3huu {
-        background: #04e07a !important;
+    /* Target ALL Streamlit slider range inputs */
+    input[type=range]::-webkit-slider-runnable-track {
+        height: 6px;
+        background: linear-gradient(
+            to right,
+            #04e07a var(--progress),   
+            #e5e5e5 var(--progress)    
+        );
+        border-radius: 4px;
     }
-    
-    .stSlider > div[data-baseweb="slider"] > div > div {
-        background: #04e07a !important;
-    }
+
+    /* Update changes dynamically*/
+    input[type=range] {
+        accent-color:  #04e07a; /* thumb color */
+    }    
 </style>
+
+<script>
+document.addEventListener("input", function(e) {
+    if (e.target.type === "range") {
+        let val = (e.target.value - e.target.min) / (e.target.max - e.target.min) * 100;
+        e.target.style.setProperty("--progress", val + "%");
+    }
+});
+</script>
+
 """
 st.markdown(minimalCss, unsafe_allow_html=True)
 
