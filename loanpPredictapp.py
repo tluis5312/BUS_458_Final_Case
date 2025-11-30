@@ -62,39 +62,13 @@ minimalCss = """
         color: black !important;   /* dropdown options be black */
         background-color: white !important;
     }
-    
-    /* Target ALL Streamlit slider range inputs */
-    input[type=range]::-webkit-slider-runnable-track {
-        height: 6px;
-        background: linear-gradient(
-            to right,
-            #04e07a var(--progress),   
-            #e5e5e5 var(--progress)    
-        );
-        border-radius: 4px;
-    }
-
-    /* Update changes dynamically*/
-    input[type=range] {
-        accent-color:  #04e07a; /* thumb color */
-    }    
 </style>
-
-<script>
-document.addEventListener("input", function(e) {
-    if (e.target.type === "range") {
-        let val = (e.target.value - e.target.min) / (e.target.max - e.target.min) * 100;
-        e.target.style.setProperty("--progress", val + "%");
-    }
-});
-</script>
-
 """
 st.markdown(minimalCss, unsafe_allow_html=True)
 
 # Main Title
 st.markdown(
-    "<h1 style='background-color: #04e07a;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
+    "<h1 style='background-color: #00bd65;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
     unsafe_allow_html=True
 )
 
@@ -185,8 +159,6 @@ inputDf = pd.DataFrame({
     "Ever_Bankrupt_or_Foreclose": [everBankruptOrForeclose],
     "Lender": [lender]
 })
-
-# --- DO NOT ONE-HOT ENCODE (pipeline handles encoding internally) ---
 
 # Stylize the sumbit button
 buttonStyle = """
