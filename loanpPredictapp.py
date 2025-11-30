@@ -187,12 +187,14 @@ if st.button("Evaluate Loan Application:"):
     probability = model.predict_proba(inputDf)[0][1] if hasattr(model, "predict_proba") else None
 
     st.subheader("Prediction Result:", divider="blue")
-
+    
+# Approval Message
     if prediction == 1:
-        st.error(
-            f"🚫 Loan likely to be **Denied / High Risk**\n\nProbability: **{probability:.2f}**"
-        )
-    else:
         st.success(
-            f"💲 Loan likely to be **Approved / Low Risk**\n\nProbability: **{probability:.2f}**"
+            f"💲 Loan likely to be **APPROVED / Low Risk**\n\nProbability: **{probability:.2f}**"
+    )
+        
+    else:
+        st.error(
+            f"🚫 Loan likely to be **DENIED / High Risk**\n\nProbability: **{probability:.2f}**"
         )
