@@ -27,7 +27,7 @@ minimalCss = """
 <style>
     /* Make outer background soft gray */
     .stApp {
-        background-color: #f5f7f6;
+        background-color: white;
     }
 
     /* Modern spacing for inputs */
@@ -68,7 +68,7 @@ st.markdown(minimalCss, unsafe_allow_html=True)
 
 # Main Title
 st.markdown(
-    "<h1 style='background-color: #00bd65;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
+    "<h1 style='background-color: #FF4C4C;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
     unsafe_allow_html=True
 )
 
