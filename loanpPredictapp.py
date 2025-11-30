@@ -22,52 +22,74 @@ except Exception as e:
     st.error(f"Error loading model: {e}")
     st.stop()
 
-# Set global theme for app
+# Set global theme for app using CSS
 globalCss = """
 <style>
 
-    body, p, div, label, input, span {
+    /* ---------- Global Text ---------- */
+    body, p, div, label, span {
         color: black !important;
     }
 
-    /* Input Boxes (text inside them) */
-    .stNumberInput input, .stTextInput input {
-        color: black !important;
-        background-color: white !important;
-    }
-
-    /* Selectbox Text */
-    .stSelectbox div, .stSelectbox label {
-        color: black !important;
-    }
-
-    /* Slider Label Text */
-    .stSlider label {
-        color: black !important;
-    }
-
+    /* ---------- Title Bars ---------- */
     .title-main {
         background-color: #102770;
         padding: 15px;
-        color: white;
+        color: white !important;
         border-radius: 10px;
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 25px; /* <-- Adds spacing between blocks */
     }
 
     .title-sub {
         background-color: #3a80b5;
-        padding: 10px;
-        color: white;
+        padding: 12px;
+        color: white !important;
         font-weight: bold;
         text-align: center;
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 25px; /* <-- Adds spacing */
     }
 
+    /* ---------- Input Boxes (NUMBER + TEXT) ---------- */
+    .stNumberInput input, .stTextInput input {
+        color: black !important;           /* text color */
+        background-color: white !important; /* white interior */
+        border-radius: 6px !important;
+        padding: 8px !important;
+    }
+
+    /* ---------- Selectboxes (MATCH STYLE OF INPUT BOX) ---------- */
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: white !important;
+        color: black !important;
+        border-radius: 6px !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .stSelectbox svg {
+        color: black !important; /* arrow icon */
+    }
+
+    .stSelectbox div, .stSelectbox label {
+        color: black !important;
+    }
+
+    /* ---------- Slider Label Text ---------- */
+    .stSlider label {
+        color: black !important;
+    }
+
+    /* ---------- Slider Value Bubble ---------- */
+    .stSlider .css-1djdyxw {
+        color: black !important;
+    }
+
+    /* ---------- App Background ---------- */
     .stApp {
         background-color: #D3D3D3;
     }
+
 </style>
 """
 st.markdown(globalCss, unsafe_allow_html=True)
