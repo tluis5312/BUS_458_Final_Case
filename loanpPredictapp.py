@@ -26,66 +26,63 @@ except Exception as e:
 globalCss = """
 <style>
 
-    /* ---------- Global Text ---------- */
+    /* Universal text override */
     body, p, div, label, span {
         color: black !important;
     }
 
-    /* ---------- Title Bars ---------- */
-    .title-main {
-        background-color: #102770;
-        padding: 15px;
-        color: white !important;
-        border-radius: 10px;
-        text-align: center;
-        margin-bottom: 25px; /* <-- Adds spacing between blocks */
-    }
-
-    .title-sub {
-        background-color: #3a80b5;
-        padding: 12px;
-        color: white !important;
-        font-weight: bold;
-        text-align: center;
-        border-radius: 10px;
-        margin-bottom: 25px; /* <-- Adds spacing */
-    }
-
-    /* ---------- Input Boxes (NUMBER + TEXT) ---------- */
-    .stNumberInput input, .stTextInput input {
-        color: black !important;           /* text color */
-        background-color: white !important; /* white interior */
+    /* Number input boxes */
+    .stNumberInput input {
+        background-color: white !important;
+        color: black !important;
         border-radius: 6px !important;
-        padding: 8px !important;
     }
 
-    /* ---------- Selectboxes (MATCH STYLE OF INPUT BOX) ---------- */
-    .stSelectbox div[data-baseweb="select"] {
+    /* Selectbox (internal wrapper) */
+    div[data-baseweb="select"] > div {
         background-color: white !important;
         color: black !important;
         border-radius: 6px !important;
         border: 1px solid #ccc !important;
     }
-
-    .stSelectbox svg {
-        color: black !important; /* arrow icon */
-    }
-
-    .stSelectbox div, .stSelectbox label {
+    
+    /* Selectbox selected text */
+    div[data-baseweb="select"] span {
         color: black !important;
     }
 
-    /* ---------- Slider Label Text ---------- */
+    /* Make the dropdown list white too */
+    ul[role="listbox"] {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    /* Slider label text */
     .stSlider label {
         color: black !important;
     }
 
-    /* ---------- Slider Value Bubble ---------- */
-    .stSlider .css-1djdyxw {
-        color: black !important;
+    /* Fix title blocks, spacing, roundness, white text */
+    .title-main {
+        background-color: #102770;
+        padding: 20px;
+        color: white !important;
+        border-radius: 14px;
+        text-align: center;
+        margin-bottom: 25px; /* Add spacing */
     }
 
-    /* ---------- App Background ---------- */
+    .title-sub {
+        background-color: #3a80b5;
+        padding: 14px;
+        color: white !important;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 14px;
+        margin-bottom: 30px; /* Extra spacing between the blocks */
+    }
+
+    /* Background */
     .stApp {
         background-color: #D3D3D3;
     }
