@@ -35,34 +35,41 @@ minimalCss = """
         padding-top: 2rem;
     }
 
-    /* Clean title spacing */
-    .main-title {
-        margin-bottom: 1rem;
-        padding: 1rem;
-        border-radius: 8px;
-        background: #102770;
-        color: white;
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
+    /* Make labels black (outside dropdowns) */
+    label, .stSelectbox label, .stNumberInput label, .stSlider label {
+        color: black !important;
+        font-weight: 600;
     }
 
-    .sub-title {
-        margin-bottom: 2rem;
-        padding: 0.8rem;
-        border-radius: 8px;
-        background: #3a80b5;
-        color: white;
-        text-align: center;
-        font-size: 1rem;
-        font-weight: 600;
+    /* Text *inside* number Inputs text fields → black */
+    .stNumberInput input, .stTextInput input {
+        color: black !important;
+    }
+
+    /* CLOSED dropdown box text (user-selected value) stays WHITE */
+    .stSelectbox > div[data-baseweb="select"] > div {
+        color: white !important;
+        background-color: #1f1f1f !important;  /* modern dark dropdown */
+        border-radius: 6px;
+        padding-left: 10px;
+    }
+
+    /* Default styling for dropdown options */
+    .stSelectbox [role="listbox"] div {
+        color: black !important;   /* dropdown options be black */
+        background-color: white !important;
     }
 </style>
 """
 st.markdown(minimalCss, unsafe_allow_html=True)
 
-# Titles
-st.markdown("<h1 class='title-main'>Personal Loan Approval Form</h1>", unsafe_allow_html=True)
+# Main Title
+st.markdown(
+    "<h1 style='text-align:center; color:#FF4C4C; font-weight:900;'>Personal Loan Approval Form</h1>",
+    unsafe_allow_html=True
+)
+
+# Subtitle
 st.markdown("<div class='title-sub'>Enter Applicant Information Below to Determine Loan Approval:</div>", unsafe_allow_html=True)
 
 # ---Define categorical fields based on previously provided values---
