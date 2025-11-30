@@ -23,82 +23,40 @@ except Exception as e:
     st.stop()
 
 # Set global theme for app using CSS
-globalCss = """
+minimalCss = """
 <style>
-
-    /* Set all text to black */
-    body, p, div, label, input, span {
-        color: black !important;
-    }
-
-    /* Fix input text fields (white background + black text) */
-    .stNumberInput input, .stTextInput input {
-        color: black !important;
-        background-color: white !important;
-    }
-
-    /* Fix selectbox collapsed area */
-    div[data-baseweb="select"] > div {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid #ccc !important;
-        border-radius: 6px !important;
-    }
-
-    /* Fix selectbox text */
-    div[data-baseweb="select"] * {
-        color: black !important;
-    }
-
-    /* Fix dropdown menu background */
-    ul[role="listbox"] {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid #999 !important;
-    }
-
-    /* Fix dropdown menu options */
-    ul[role="listbox"] li {
-        background-color: white !important;
-        color: black !important;
-        padding: 8px !important;
-    }
-
-    /* Fix dropdown option hover */
-    ul[role="listbox"] li:hover {
-        background-color: #e6f7ff !important; /* light blue hover */
-        color: black !important;
-    }
-
-    /* Fix slider label text */
-    .stSlider label {
-        color: black !important;
-    }
-
-    /* Title Blocks */
-    .title-main {
-        background-color: #102770;
-        padding: 15px;
-        color: white !important;
-        border-radius: 10px;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .title-sub {
-        background-color: #3a80b5;
-        padding: 10px;
-        color: white !important;
-        font-weight: bold;
-        text-align: center;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-
+    /* Make outer background soft gray */
     .stApp {
-        background-color: #D3D3D3;
+        background-color: #e9ecef;
     }
 
+    /* Modern spacing for inputs */
+    .block-container {
+        padding-top: 2rem;
+    }
+
+    /* Clean title spacing */
+    .main-title {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #102770;
+        color: white;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .sub-title {
+        margin-bottom: 2rem;
+        padding: 0.8rem;
+        border-radius: 8px;
+        background: #3a80b5;
+        color: white;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+    }
 </style>
 """
 st.markdown(globalCss, unsafe_allow_html=True)
