@@ -40,13 +40,16 @@ minimalCss = """
         color: black !important;
         font-weight: 600;
     }
-
-    /* Text *inside* number Inputs text fields → black */
-    .stNumberInput input, .stTextInput input {
-        color: black !important;
+    
+     /* Subtitle centered */
+    .title-sub {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: black;
     }
-
-    /* CLOSED dropdown box text (user-selected value) stays WHITE */
+    
+    /* Closed dropdown box text */
     .stSelectbox > div[data-baseweb="select"] > div {
         color: white !important;
         background-color: #1f1f1f !important;  /* modern dark dropdown */
