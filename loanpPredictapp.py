@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
@@ -105,9 +104,10 @@ monthlyGrossIncome = st.number_input(
     "Monthly Gross Income ($):",
     min_value=-2559.0,
     max_value=14005.0,
-    value=0.0, # Starts at 0, but minimum can be lower
+    value=0.0, 
     step=10.0
 )
+
 # Loan Amount
 grantedLoanAmount = st.slider(
     "Granted Loan Amount ($):",
@@ -116,6 +116,7 @@ grantedLoanAmount = st.slider(
     value=1000.0,
     step=1000.0
 )
+
 # FICO Score
 ficoScore = st.slider(
     "FICO Score:",
@@ -124,6 +125,7 @@ ficoScore = st.slider(
     value=300,
     step=1
 )
+
 # Monthly Housing Payment
 monthlyHousingPayment = st.number_input(
     "Monthly Housing Payment ($):",
@@ -134,24 +136,20 @@ monthlyHousingPayment = st.number_input(
 )
 
 # ---Categorical Inputs---
-# Reasons 
 reason = st.selectbox("Reason for Loan", reasonLevels)
-# Employment Status
 employmentStatus = st.selectbox("Employment Status:", employmentStatusLevels)
-# Employment Sector
 employmentSector = st.selectbox("Employment Sector:", employmentSectorLevels)
-# Bankruptcy
+
 everBankruptOrForeclose = st.selectbox(
     "Ever Bankrupt or Foreclosed:",
     everBkLevels,
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
-# Lender
+
 lender = st.selectbox("Lender", lenderLevels)
 
 # ---Build DataFrame---
 inputDf = pd.DataFrame({
-    # Numeric fields first, then categorical last
     "Monthly_Gross_Income": [monthlyGrossIncome],
     "Granted_Loan_Amount": [grantedLoanAmount],
     "FICO_score": [ficoScore],
@@ -163,17 +161,7 @@ inputDf = pd.DataFrame({
     "Lender": [lender]
 })
 
-# One-hot encode categoricals
-inputEncoded = pd.get_dummies(inputDf)
-
-# Ensure all model columns exist
-modelCols = model.feature_names_in_
-for col in modelCols:
-    if col not in inputEncoded:
-        inputEncoded[col] = 0
-
-# Match model column order
-inputEncoded = inputEncoded[modelCols]
+# --- DO NOT ONE-HOT ENCODE (pipeline handles encoding internally) ---
 
 # Stylize the sumbit button
 buttonStyle = """
@@ -195,8 +183,8 @@ st.markdown(buttonStyle, unsafe_allow_html=True)
 
 # Create prediction
 if st.button("Evaluate Loan Application:"):
-    prediction = model.predict(inputEncoded)[0]
-    probability = model.predict_proba(inputEncoded)[0][1] if hasattr(model, "predict_proba") else None
+    prediction = model.predict(inputDf)[0]
+    probability = model.predict_proba(inputDf)[0][1] if hasattr(model, "predict_proba") else None
 
     st.subheader("Prediction Result:", divider="blue")
 
