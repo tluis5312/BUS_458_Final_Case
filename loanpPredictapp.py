@@ -77,7 +77,7 @@ st.markdown(minimalCss, unsafe_allow_html=True)
 
 # Main Title
 st.markdown(
-    "<h1 style='background-color: ##04e07a;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
+    "<h1 style='background-color: #04e07a;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
     unsafe_allow_html=True
 )
 
