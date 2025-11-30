@@ -4,11 +4,22 @@ import streamlit as st
 import pandas as pd
 import sklearn
 import pickle   # <-- REQUIRED so pickle.load() works
+import requests
 
 # --- Select the .pkl model ---
-# Correct indentation + ensure pickle loads properly
-with open("/content/team_model.pkl", "rb") as file:
-    model = pickle.load(file)  
+modelUrl = "https://raw.githubusercontent.com/tluis5312/BUS_458_Final_Case/2d2103fed3e60fd9be34e497f99400d2d88604c0/team_model.pkl"
+
+response = requests.get(modelUrl)
+
+if response.status_code != 200:
+    st.error("Failed to download model from GitHub.")
+    st.stop()
+
+try:
+    model = pickle.loads(response.content)
+except Exception as e:
+    st.error(f" Error loading model: {e}")
+    st.stop()
 
 # Title for the app
 st.title("Loan Prediction Scoring")
