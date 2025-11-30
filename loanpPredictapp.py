@@ -27,7 +27,7 @@ minimalCss = """
 <style>
     /* Make outer background soft gray */
     .stApp {
-        background-color: #e9ecef;
+        background-color: #f5f7f6;
     }
 
     /* Modern spacing for inputs */
@@ -52,7 +52,7 @@ minimalCss = """
     /* Closed dropdown box text */
     .stSelectbox > div[data-baseweb="select"] > div {
         color: white !important;
-        background-color: #1f1f1f !important;  /* modern dark dropdown */
+        background-color: #1f1f1f !important; 
         border-radius: 6px;
         padding-left: 10px;
     }
@@ -62,13 +62,22 @@ minimalCss = """
         color: black !important;   /* dropdown options be black */
         background-color: white !important;
     }
+    
+    /* Change slider line color */
+    div[data-baseweb="slider"]  .css-1gv3huu {
+        background: #04e07a !important;
+    }
+    
+    .stSlider > div[data-baseweb="slider"] > div > div {
+        background: #04e07a !important;
+    }
 </style>
 """
 st.markdown(minimalCss, unsafe_allow_html=True)
 
 # Main Title
 st.markdown(
-    "<h1 style='text-align:center; color:#FF4C4C; font-weight:900;'>Personal Loan Approval Form</h1>",
+    "<h1 style='background-color: ##04e07a;text-align:center; color: white; font-weight:900;'>Personal Loan Approval Form</h1>",
     unsafe_allow_html=True
 )
 
@@ -166,14 +175,14 @@ inputDf = pd.DataFrame({
 buttonStyle = """
     <style>
         div.stButton > button:first-child {
-            background-color: #d2fafc;
-            color: #004b59;
+            background-color: #d2fce7;
+            color: #005937;
             border-radius: 8px;
-            border: 1px solid #66c2cc;
+            border: 1px solid #66cc99;
             padding: 10px 16px;
         }
         div.stButton > button:first-child:hover {
-            background-color: #baf4f6;
+            background-color: #baf6d7;
             color: #003941;
         }
     </style>
@@ -185,8 +194,8 @@ if st.button("Evaluate Loan Application:"):
     prediction = model.predict(inputDf)[0]
     probability = model.predict_proba(inputDf)[0][1] if hasattr(model, "predict_proba") else None
 
-    st.subheader("Prediction Result:", divider="blue")
-    
+    st.markdown("<h3 style='color:black;'>Prediction Result:</h3>", unsafe_allow_html=True)
+
 # Approval Message
     if prediction == 1:
         st.success(
