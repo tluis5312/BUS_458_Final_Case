@@ -26,67 +26,67 @@ except Exception as e:
 globalCss = """
 <style>
 
-    /* Universal text override */
-    body, p, div, label, span {
+    body, p, div, label, input, span {
         color: black !important;
     }
 
-    /* Number input boxes */
-    .stNumberInput input {
+    /* Fix Input Fields */
+    .stNumberInput input, .stTextInput input {
+        color: black !important;
+        background-color: white !important;
+    }
+
+    /* Fix Selectbox primary display */
+    .stSelectbox > div > div {
         background-color: white !important;
         color: black !important;
-        border-radius: 6px !important;
+        border-radius: 6px;
     }
 
-    /* Selectbox (internal wrapper) */
-    div[data-baseweb="select"] > div {
+    /* Fix Selectbox label */
+    .stSelectbox label {
+        color: black !important;
+    }
+
+    /* Fix selectbox dropdown options */
+    .stSelectbox div[data-baseweb="select"] * {
+        color: black !important;
+        background-color: white !important;
+    }
+
+    /* Fix inner dropdown list items */
+    .stSelectbox ul {
         background-color: white !important;
         color: black !important;
-        border-radius: 6px !important;
-        border: 1px solid #ccc !important;
-    }
-    
-    /* Selectbox selected text */
-    div[data-baseweb="select"] span {
-        color: black !important;
     }
 
-    /* Make the dropdown list white too */
-    ul[role="listbox"] {
-        background-color: white !important;
-        color: black !important;
-    }
-
-    /* Slider label text */
+    /* Slider Label Text */
     .stSlider label {
         color: black !important;
     }
 
-    /* Fix title blocks, spacing, roundness, white text */
     .title-main {
         background-color: #102770;
         padding: 20px;
-        color: white !important;
-        border-radius: 14px;
+        color: white;
+        border-radius: 12px;
         text-align: center;
-        margin-bottom: 25px; /* Add spacing */
+        margin-bottom: 25px;
     }
 
     .title-sub {
         background-color: #3a80b5;
-        padding: 14px;
-        color: white !important;
+        padding: 15px;
+        color: white;
         font-weight: bold;
         text-align: center;
-        border-radius: 14px;
-        margin-bottom: 30px; /* Extra spacing between the blocks */
+        border-radius: 12px;
+        margin-bottom: 30px;
     }
 
-    /* Background */
     .stApp {
         background-color: #D3D3D3;
     }
-
 </style>
 """
 st.markdown(globalCss, unsafe_allow_html=True)
