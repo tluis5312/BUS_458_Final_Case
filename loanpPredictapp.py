@@ -59,7 +59,7 @@ minimalCss = """
     }
 </style>
 """
-st.markdown(globalCss, unsafe_allow_html=True)
+st.markdown(minimalCss, unsafe_allow_html=True)
 
 # Titles
 st.markdown("<h1 class='title-main'>Personal Loan Approval Form</h1>", unsafe_allow_html=True)
